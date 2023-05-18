@@ -1,0 +1,126 @@
+START
+
+INCLUDE classes and methods Connection,DriverManager,SQLException,Statement from package java.sql
+INCLUDE classes and methods Iterator from package java.util
+INCLUDE classes and methods  StringList from package matrix.util
+INCLUDE classes and methods MqlUtil,FrameworkUtil from package com.matrixone.apps.domain.util
+INCLUDE all classes and methods from matrix.db
+
+TRY:
+	DECLARE and INITIALIZE variables JDBC_DRIVER,USER,PASS,DB_URL,count from PAGEfile in database
+	DECLARE and INITIALIZE Connection conn and Statement stmt equal to null
+	Register JDBC driver -> Class.forName(JDBC_DRIVER)
+	SET conn = DriverManager.getConnection(DB_URL, USER, PASS)
+	SET stmt = conn.createStatement()
+	
+	FOR i = 1 To count:
+		DECLARE and INITIALIZE variable tableName = EnoviaResourceBundle.getProperty(context, "query." + i + ".table.name")
+		DECLARE and INITIALIZE variable columns = EnoviaResourceBundle.getProperty(context, "query." + i + ".COLUMN");
+		SET columns = columns.replaceAll(",", ", ").replaceAll("\\s+", " ").replaceAll(" ,", ",").trim();
+		DECLARE and INITIALIZE variable splitColumns = columns.split(", ");
+		
+		DECLARE and INITIALIZE variable sqlDrop = "DROP TABLE IF EXISTS " + tableName
+		
+		EXECUTE sqlDrop statement
+		PRINT -> Creating table in given database...
+		
+		DECLARE and INITIALIZE variable sql1 = "CREATE TABLE " + tableName
+		EXECUTE sql1 statement
+		
+		DECLARE sql2
+		FOR eachColumnName in splitColumns:
+			SET sql2 = ALTER TABLE " + tableName + " ADD " + "\"" + eachColumnName + "\"" + " varchar(max)
+			EXECUTE sql2 statement
+		END FOR
+		PRINT -> Created table in given database...
+		
+		DECLARE and INITIALIZE variable list_items = EnoviaResourceBundle.getProperty(context, "query." + i + ".list")
+		SET list_items = list_items.replaceAll("\\s+", "")
+		PRINT -> "list names: " + list_items
+		DECLARE and INITIALIZE variable splitted_items equal to null
+		SET splitted_items = list_items.split(",")
+		
+		FOR each schemaType in splitted_items:
+			TRY:
+				DECLARE variable schemaNameList
+				SET schemaNameList = MqlUtil.mqlCommand(context, "list \"" + schemaType + "\" *")
+				
+				DECLARE and INITIALIZE variable schemaNameSplit = FrameworkUtil.split(schemaNameList, "\n")
+				
+				DECLARE and INITIALIZE variable schemaNameIterator = schemaNameSplit.iterator()
+				DECLARE variable schemaName
+				
+				PRINT -> "list " + schemaType + " command executed")
+				
+				WHILE schemaNameIterator has more elements:
+					SET schemaName = next element in the schemaNameIterator
+					DECLARE variable hist
+					SET hist = MqlUtil.mqlCommand(context, "print \"" + schemaType + "\" \"" + schemaName + "\" select history")
+					DECLARE and INITIALIZE variable splitHistory = FrameworkUtil.split(hist, "\n")
+					Remove 0th index element from splitHistory
+					DECLARE and INITIALIZE variable historyIterator = splitHistory.iterator()
+					
+					DECLARE variables type, user, date, text
+					
+					WHILE historyIterator has more elements:
+						DECLARE and INITIALIZE variable history = next element in the historyIterator 
+						
+						IF history contains "type:" THEN
+							SET type = history.split("type:")[1].split(" ")[0]
+						END IF
+						
+						IF history contains "user:" THEN
+							SET user = history.split("user:")[1].split(" ")[0]
+						END IF
+						
+						IF history contains "date:" THEN
+							SET date = history.split("date:")[1].split("text:")[0]
+						END IF
+						
+						IF history contains "text:" THEN
+							SET text = history.split("text:")[1]
+						END IF
+						
+						DECLARE and INITIALIZE variable sql = "INSERT INTO " + tableName + " VALUES ('" + schemaType + "','" + schemaName + "','" + type + "','" + user + "','" + date + "','" + text.replace("'", "") + "')"
+						
+						EXECUTE sql statement
+						
+					END WHILE
+					
+				END WHILE
+				
+			END TRY
+			
+			CATCH: SQLException se
+				se.printStackTrace()
+			END CATCH
+
+			CATCH: Exception e
+				e.printStackTrace()
+			END CATCH
+			
+			PRINT -> "All " + schemaType + " are inserted in the table: " + tableName)
+		
+		END FOR
+	
+	End FOR
+	
+	Close Statement stmt
+	Close Connection conn
+	
+END TRY
+
+CATCH: SQLException se
+	se.printStackTrace()
+END CATCH
+
+CATCH: Exception e
+	e.printStackTrace()
+END CATCH
+
+PRINT -> Goodbye!
+
+END
+						
+				
+		

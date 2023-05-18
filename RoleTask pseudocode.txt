@@ -1,0 +1,60 @@
+START
+
+INCLUDE classes and methods IOException,FileWriter,FileReader,File,BufferedReader from java.io package
+
+DECLARE and INITIALIZE variable directoryPath = C:\\Users\\Dell\\Downloads\\role
+DECLARE and INITIALIZE variable filesList = directoryPath.listFiles()
+DECLARE and INITIALIZE variable outputFilename = C:\\Users\\Dell\\Desktop\\JDK_ADK\\JPO_Practice\\RoleTaskOutput.csv
+DECLARE and INITIALIZE variable fw = FileWriter(outputFilename);
+DECLARE variable fileName
+
+APPEND Release,Product,Role,AppName in fw
+
+FOR each file in filesList:
+	fileName = file_path
+	DECLARE and INITIALIZE variable fr = FileReader(fileName)
+	
+	TRY:
+		DECLARE and INITIALIZE variable br = BufferedReader(fr)
+		DECLARE variables role,release,product,appName,line
+		SET count = 0
+		
+		WHILE line = br.readLine() is not null:
+		
+			IF line contains "roles" THEN
+				role = line.split("content=")[1].replaceAll("[\">]", "")
+			END IF
+				
+			IF line contains "release" THEN
+				release = line.split("content=")[1].replaceAll("[\">]", "")
+			END IF			
+			
+			IF line contains "bigicon" THEN
+				DECLARE and INITIALIZE variable splitLine = line.split("/")
+				DECLARE and INITIALIZE variable lastOne = splitLine[(splitLine.length) - 1]
+				product = lastOne.split("_role")[0]
+			END IF	
+			
+			IF line contains "<li" and "</a></li>" THEN
+				DECLARE and INITIALIZE variable splitLine = line.split("\">")
+				DECLARE and INITIALIZE variable lastOne = lastOne = splitLine[(splitLine.length) - 1]
+				appName = lastOne.replaceAll("</a></li>", "")
+				Increment the count by 1
+				PRINT -> release + "  " + product + "  " + role + "  " + appName + "  " + count
+				AppEND release,product,role,appName in fw
+			END IF
+			
+		END WHILE
+		
+		close br
+		
+	END TRY
+	
+	CATCH: Exception ex
+		Print ex.getMessage()
+	END CATCH		
+		
+END FOR
+PRINT -> "Data successfully fetched and copied to " + outputFilename
+
+END

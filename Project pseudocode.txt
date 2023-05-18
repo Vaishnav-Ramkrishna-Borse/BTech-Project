@@ -1,0 +1,156 @@
+START
+
+INCLUDE classes and methods Connection,DriverManager,SQLException,Statement from package java.sql
+INCLUDE classes and methods Iterator,ArrayList from package java.util
+INCLUDE classes and methods Parameter,Member,Executable,Method,Constructor from package java.lang.reflect
+INCLUDE classes and methods  StringList from package matrix.util
+INCLUDE classes and methods MqlUtil,FrameworkUtil from package com.matrixone.apps.domain.util
+INCLUDE all classes and methods from matrix.db
+
+INCLUDE classes and methods File,FileWriter,IOException from package java.io
+
+DECLARE and INITIALIZE variable JDBC_DRIVER = "org.h2.Driver"
+DECLARE and INITIALIZE variable DB_URL = "jdbc:h2:C:/temp/test"
+DECLARE and INITIALIZE variable USER = "sa"
+DECLARE and INITIALIZE variable PASS = ""
+
+TRY:
+	DECLARE and INITIALIZE Connection conn and Statement stmt equal to null
+	Register JDBC driver -> Class.forName(JDBC_DRIVER)
+	PRINT -> "Connecting to database..."
+	SET conn = DriverManager.getConnection(DB_URL, USER, PASS)
+	SET stmt = conn.createStatement()
+	
+	PRINT -> Creating table in given database...
+		
+	DECLARE and INITIALIZE variable sql1 = "CREATE TABLE JPO_Info " + "(\"JPO Name\" VARCHAR(max), " + " \"Function name\" VARCHAR(max), " + " \"Function arg\" VARCHAR(max), " + " \"Function return type\" VARCHAR(max)," + " Extends VARCHAR(max))"
+	EXECUTE sql1 statement
+	
+	PRINT -> Created table in given database...
+	
+	DECLARE variable schemaName
+	SET schemaName = MqlUtil.mqlCommand(context, "list prog *")
+	DECLARE and INITIALIZE variable schemaNameSplit = FrameworkUtil.split(schemaName, "\n")
+	DECLARE and INITIALIZE variable it = schemaNameSplit.iterator()
+	DECLARE variable program
+	DECLARE and INITIALIZE variable outputFilename = "C:\\Users\\Dell\\Documents\\Vaishnav\\program_extracted.txt"
+	DECLARE and INITIALIZE variable fw = new FileWriter(outputFilename)
+	
+	WHILE it has more elements:
+		TRY:
+			SET program = next element in the it
+			Append -> (program + "\n") in fw
+			DECLARE variable code
+			SET code = MqlUtil.mqlCommand(context, "print prog " + program + " select code dump")
+			
+			IF code is blank THEN
+				continue prog from start of WHILE loop
+			END WHILE
+			DECLARE variable progClassName
+			SET progClassName = MqlUtil. mqlCommand(context, "print prog " + program + " select classname dump")
+			
+			PRINT -> progClassName
+			
+			DECLARE variables nameFunc,nameArg,nameReturnType,nameExtends
+			
+			DECLARE and INITIALIZE variable classobj = Class.forName(progClassName)
+			
+			IF classobj.getSuperclass().getSimpleName() contains "mxJPO" THEN
+				SET nameExtends = classobj.getSuperclass().getSimpleName().split("mxJPO")[0] + "mxJPO"
+				
+			Else
+				SET nameExtends = classobj.getSuperclass().getSimpleName()
+			END IF
+			
+			PRINT -> nameExtends
+			IF nameExtends is equal to "Object" THEN
+				SET nameExtends as ""
+			END IF
+			
+			PRINT -> nameExtends
+			
+			DECLARE and INITIALIZE variable allDeclConst = classobj.getDeclaredConstructors()
+			PRINT -> "No. of Constructors :" + allDeclConst.length
+			
+			FOR each constructor in allDeclConst:
+				DECLARE and INITIALIZE variable constType = constructor.getParameters()
+				
+				PRINT -> "\nConstructor Name : " + constructor.getName()
+				SET nameFunc = constructor.getName()
+				
+				PRINT -> "No of Constructor Parameters : " + constType.length
+				PRINT -> "Constructor object details:"
+				
+				DECLARE variable argumentList as ArrayList
+				
+				FOR each parameter in constType:
+					Add in argumentList -> parameter.getType().getSimpleName() + " " + parameter.getName() 
+				END FOR
+				
+				PRINT -> argumentList
+				
+				IF argumentList is empty THEN
+					continue prog from start of FOR loop
+				END IF
+				
+				DECLARE and INITIALIZE variable sql2 = "INSERT INTO JPO_Info" + " VALUES ('" + program + "','" + nameFunc.split("mxJPO")[0] + "mxJPO" + "','" + argumentList + "','" + nameReturnType + "','" + nameExtends + "')"
+				
+				EXECUTE sql2 statement
+				
+			END FOR
+			
+			DECLARE and INITIALIZE variable methods = classobj.getDeclaredMethods()
+			
+			FOR each method in methods:
+				DECLARE and INITIALIZE variable parameters = method.getParameters()
+				
+				DECLARE and INITIALIZE returnParam = method.getReturnType()
+				
+				PRINT -> "\nProgram name :" + program
+				PRINT -> "Method Name : " + method.getName()
+				SET nameFunc = method.getName()
+				
+				IF nameFunc is equal to "notifyAll" or "notify" or "toString" or "equals" or "hashCode" or "wait" or "getClass" THEN
+					continue prog from start of FOR loop
+				END IF
+				
+				SET nameReturnType = returnParam.getSimpleName()
+				
+				PRINT -> "No of Parameters : " + parameters.length
+				PRINT -> "Parameter object details:"
+				
+				DECLARE variable argumentList as ArrayList
+				FOR each parameter in parameters:
+					Add in argumentList -> parameter.getType().getSimpleName() + " " + parameter.getName()
+				END FOR
+				
+				PRINT -> argumentList
+				DECLARE and INITIALIZE variable sql2 = "INSERT INTO JPO_Info" + " VALUES ('" + program + "','" + nameFunc + "','" + argumentList + "','" + nameReturnType + "','" + nameExtends + "')"
+				
+				EXECUTE sql2 statement
+			END FOR
+		END TRY
+		
+		CATCH: Exception e
+			PRINT -> it.toString()
+			e.printStackTrace()
+		END CATCH
+	END WHILE
+	Close Statement stmt
+	Close Connection conn
+	
+END TRY
+
+CATCH: SQLException se
+	se.printStackTrace()
+END CATCH
+
+CATCH: Exception e
+	e.printStackTrace()
+END CATCH
+
+PRINT -> Goodbye!
+
+END
+
+

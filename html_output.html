@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head><style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+  
+.column {
+  margin: auto;
+  float: center;
+  width: 90%;
+  padding: 20px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+th,td{
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th{
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+</style></head><body><div class="row">
+<h1>3DEXPERIENCE Upgrade Assessment Tool:</h1>  <div class="column">
+<h2>Number of modifications per schema</h2>    <table style="page-break-after: always;"><tr><th style="background-color:Lightgray;"><b>#</b></th><th style="background-color:LightGray;"><b>schema name</b></th><th style="background-color:LightGray;"><b>OBJ_COUNT</b></th></tr>
+<tr><td >1</td> <td >Document Release</td><td >687</td></tr>
+<tr><td >2</td> <td >Workspace Vaults</td><td >609</td></tr>
+<tr><td >3</td> <td >Test Execution</td><td >460</td></tr>
+<tr><td >4</td> <td >Configured Part</td><td >168</td></tr>
+<tr><td >5</td> <td >VPLM_SMB_Definition</td><td >156</td></tr>
+<tr><td >6</td> <td >VPLM_SMB_Resource</td><td >154</td></tr>
+<tr><td >7</td> <td >VPLM_SMB_Evaluation</td><td >152</td></tr>
+<tr><td >8</td> <td >Service Definition Content</td><td >143</td></tr>
+<tr><td >9</td> <td >VPLM_SMB_Definition_Document</td><td >135</td></tr>
+<tr><td >10</td> <td >Reference Document</td><td >131</td></tr>
+<tr><td >11</td> <td >Vaulted Objects</td><td >101</td></tr>
+<tr><td >12</td> <td >Organization</td><td >95</td></tr>
+<tr><td >13</td> <td >Manufacturer Equivalent</td><td >89</td></tr>
+<tr><td >14</td> <td >Classified Item</td><td >88</td></tr>
+<tr><td >15</td> <td >Issue</td><td >88</td></tr>
+<tr><td >16</td> <td >Product</td><td >88</td></tr>
+<tr><td >17</td> <td >Requirement</td><td >84</td></tr>
+<tr><td >18</td> <td >EC Part</td><td >81</td></tr>
+<tr><td >19</td> <td >Product Configuration</td><td >78</td></tr>
+<tr><td >20</td> <td >Build</td><td >75</td></tr>
+<tr><td >21</td> <td >Task Deliverable</td><td >73</td></tr>
+<tr><td >22</td> <td >Test Case</td><td >71</td></tr>
+<tr><td >23</td> <td >Use Case</td><td >71</td></tr>
+<tr><td >24</td> <td >Design Responsibility</td><td >69</td></tr>
+<tr><td >25</td> <td >Model</td><td >69</td></tr>
+<tr><td >26</td> <td >Product Line</td><td >69</td></tr>
+<tr><td >27</td> <td >Project Task</td><td >69</td></tr>
+<tr><td >28</td> <td >CAD Model</td><td >68</td></tr>
+<tr><td >29</td> <td >CAD Drawing</td><td >66</td></tr>
+<tr><td >30</td> <td >Drawing Print</td><td >66</td></tr>
+<tr><td >31</td> <td >Requirement Specification</td><td >64</td></tr>
+<tr><td >32</td> <td >Controlled Design Release Rev2</td><td >60</td></tr>
+<tr><td >33</td> <td >Classification</td><td >59</td></tr>
+<tr><td >34</td> <td >Part Specification</td><td >59</td></tr>
+<tr><td >35</td> <td >Controlled Production Release Rev2</td><td >56</td></tr>
+<tr><td >36</td> <td >Document Classification</td><td >56</td></tr>
+<tr><td >37</td> <td >Manufacturing Responsibility</td><td >56</td></tr>
+<tr><td >38</td> <td >VPLM_SMB_Evaluation_MajorRev</td><td >53</td></tr>
+<tr><td >39</td> <td >Data Vaults</td><td >52</td></tr>
+<tr><td >40</td> <td >Chapter</td><td >51</td></tr>
+<tr><td >41</td> <td >Comment</td><td >51</td></tr>
+<tr><td >42</td> <td >Configuration Feature</td><td >51</td></tr>
+<tr><td >43</td> <td >Job</td><td >51</td></tr>
+<tr><td >44</td> <td >VPLM_SMB_CX_Definition</td><td >51</td></tr>
+<tr><td >45</td> <td >ECO</td><td >50</td></tr>
+<tr><td >46</td> <td >Location</td><td >50</td></tr>
+<tr><td >47</td> <td >Person</td><td >50</td></tr>
+<tr><td >48</td> <td >Development Part</td><td >49</td></tr>
+<tr><td >49</td> <td >EBOM</td><td >48</td></tr>
+<tr><td >50</td> <td >Thread</td><td >48</td></tr>
+ </table>
+  </div>  <div class="column">
+<h2>Customization data for relationship and policy</h2>    <table style="page-break-after: always;"><tr><th style="background-color:Lightgray;"><b>#</b></th><th style="background-color:LightGray;"><b>schema type</b></th><th style="background-color:LightGray;"><b>schema name</b></th><th style="background-color:LightGray;"><b>Type</b></th><th style="background-color:LightGray;"><b>User</b></th><th style="background-color:LightGray;"><b>Action Date</b></th><th style="background-color:LightGray;"><b>Text</b></th></tr>
+<tr><td >1</td> <td >policy</td><td >watch</td><td >create</td><td >creator</td><td >2/27/2023 6:56:26 PM </td><td >add policy "watch" state creator;</td></tr>
+<tr><td >2</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:58:05 PM </td><td >mod policy "watch" add state in_process;</td></tr>
+<tr><td >3</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:58:23 PM </td><td >mod policy "watch" add state completed;</td></tr>
+<tr><td >4</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:58:51 PM </td><td >mod policy "watch" add type crown;</td></tr>
+<tr><td >5</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:58:58 PM </td><td >mod policy "watch" add type dial;</td></tr>
+<tr><td >6</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:59:14 PM </td><td >mod policy "watch" add type hands;</td></tr>
+<tr><td >7</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:59:26 PM </td><td >mod policy "watch" add type glass;</td></tr>
+<tr><td >8</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/27/2023 6:59:39 PM </td><td >mod policy "watch" add type wristband;</td></tr>
+<tr><td >9</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/28/2023 11:03:55 AM </td><td >mod policy "watch" add type body;</td></tr>
+<tr><td >10</td> <td >relationship</td><td >hold1</td><td >create</td><td >creator</td><td >2/28/2023 1:11:05 PM </td><td >add relationship "hold1" from type "body" to type "wristband";</td></tr>
+<tr><td >11</td> <td >relationship</td><td >hold2</td><td >create</td><td >creator</td><td >2/28/2023 1:11:45 PM </td><td >add relationship "hold2" from type "body" to type "crown";</td></tr>
+<tr><td >12</td> <td >relationship</td><td >hold3</td><td >create</td><td >creator</td><td >2/28/2023 1:12:05 PM </td><td >add relationship "hold3" from type "body" to type "dial";</td></tr>
+<tr><td >13</td> <td >relationship</td><td >hold4</td><td >create</td><td >creator</td><td >2/28/2023 1:13:32 PM </td><td >add relationship "hold4" from type "body" to type "plate";</td></tr>
+<tr><td >14</td> <td >relationship</td><td >hold5</td><td >create</td><td >creator</td><td >2/28/2023 1:13:48 PM </td><td >add relationship "hold5" from type "body" to type "glass";</td></tr>
+<tr><td >15</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/28/2023 1:15:44 PM </td><td >mod policy "watch" add type plate;</td></tr>
+<tr><td >16</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >2/28/2023 1:30:14 PM </td><td >mod policy watch add type buckle;</td></tr>
+<tr><td >17</td> <td >relationship</td><td >pinned</td><td >create</td><td >creator</td><td >2/28/2023 1:31:27 PM </td><td >add relationship "pinned" from type "wristband" to type "buckle";</td></tr>
+<tr><td >18</td> <td >relationship</td><td >move</td><td >create</td><td >creator</td><td >2/28/2023 2:13:24 PM </td><td >add relationship "move" from type "crown" to type "hands";</td></tr>
+<tr><td >19</td> <td >policy</td><td >watch</td><td >modify</td><td >creator</td><td >3/21/2023 6:07:10 PM </td><td >mod policy watch add state Released;</td></tr>
+<tr><td >20</td> <td >relationship</td><td >love</td><td >create</td><td >creator</td><td >3/21/2023 6:39:15 PM </td><td >add rel love from type body revision float to type crown revision replicate;</td></tr>
+<tr><td >21</td> <td >relationship</td><td >bind</td><td >create</td><td >creator</td><td >3/23/2023 4:06:45 PM </td><td >add rel bind from type body to type wristband;</td></tr>
+<tr><td >22</td> <td >relationship</td><td >bind</td><td >modify</td><td >creator</td><td >3/23/2023 4:09:47 PM </td><td >mod rel bind add attribute size;</td></tr>
+<tr><td >23</td> <td >relationship</td><td >bind</td><td >modify</td><td >creator</td><td >3/23/2023 4:12:30 PM </td><td >mod rel bind add attribute size;</td></tr>
+ </table>
+  </div>  <div class="column">
+<h2>Count of customized schema name for each schema type</h2>    <table style="page-break-after: always;"><tr><th style="background-color:Lightgray;"><b>#</b></th><th style="background-color:LightGray;"><b>schema type</b></th><th style="background-color:LightGray;"><b>COUNT(DISTINCT "schema name")</b></th></tr>
+<tr><td >1</td> <td >policy</td><td >1</td></tr>
+<tr><td >2</td> <td >relationship</td><td >9</td></tr>
+ </table>
+  </div>  <div class="column">
+<h2>Count of functions per JPO</h2>    <table style="page-break-after: always;"><tr><th style="background-color:Lightgray;"><b>#</b></th><th style="background-color:LightGray;"><b>JPO Name</b></th><th style="background-color:LightGray;"><b>COUNT("Function name")</b></th></tr>
+<tr><td >1</td> <td >org.mxupdate.update.zparser.MxParserTokenManager</td><td >320</td></tr>
+<tr><td >2</td> <td >emxRouteBase</td><td >146</td></tr>
+<tr><td >3</td> <td >emxCommonIssueBase</td><td >113</td></tr>
+<tr><td >4</td> <td >emxInboxTaskBase</td><td >110</td></tr>
+<tr><td >5</td> <td >emxCommonEngineeringChangeBase</td><td >107</td></tr>
+<tr><td >6</td> <td >emxMeetingBase</td><td >107</td></tr>
+<tr><td >7</td> <td >emxWorkspaceBase</td><td >94</td></tr>
+<tr><td >8</td> <td >emxDomainAccessBase</td><td >91</td></tr>
+<tr><td >9</td> <td >emxCompanyBase</td><td >83</td></tr>
+<tr><td >10</td> <td >emxChangeBase</td><td >82</td></tr>
+<tr><td >11</td> <td >emxAEFFullSearchBase</td><td >78</td></tr>
+<tr><td >12</td> <td >org.mxupdate.update.zparser.MxParser</td><td >74</td></tr>
+<tr><td >13</td> <td >emxRouteTemplateBase</td><td >71</td></tr>
+<tr><td >14</td> <td >emxWorkspaceFolderBase</td><td >71</td></tr>
+<tr><td >15</td> <td >emxOrganizationBase</td><td >69</td></tr>
+<tr><td >16</td> <td >emxVCDocumentUIBase</td><td >68</td></tr>
+<tr><td >17</td> <td >emxCommonDocumentBase</td><td >62</td></tr>
+<tr><td >18</td> <td >emxNotificationUtilBase</td><td >62</td></tr>
+<tr><td >19</td> <td >emxImageManagerBase</td><td >54</td></tr>
+<tr><td >20</td> <td >emxSubscriptionUtilBase</td><td >54</td></tr>
+<tr><td >21</td> <td >emxLifecycleBase</td><td >52</td></tr>
+<tr><td >22</td> <td >emxMailUtilBase</td><td >51</td></tr>
+<tr><td >23</td> <td >org.mxupdate.update.zparser.AdminXMLExportParserTokenManager</td><td >51</td></tr>
+<tr><td >24</td> <td >emxCommonAccessRequestBase</td><td >49</td></tr>
+<tr><td >25</td> <td >emxDiscussionBase</td><td >41</td></tr>
+<tr><td >26</td> <td >emxCommonDocumentMigrationBase</td><td >38</td></tr>
+<tr><td >27</td> <td >org.mxupdate.script.ScriptParserTokenManager</td><td >36</td></tr>
+<tr><td >28</td> <td >emxAEFUtilBase</td><td >35</td></tr>
+<tr><td >29</td> <td >emxVPLMCompositeDocumentBase</td><td >34</td></tr>
+<tr><td >30</td> <td >jpo.plmprovider.QueryBase</td><td >34</td></tr>
+<tr><td >31</td> <td >emxCommonFileUIBase</td><td >33</td></tr>
+<tr><td >32</td> <td >emxPersonBase</td><td >32</td></tr>
+<tr><td >33</td> <td >emxVCDocumentBase</td><td >31</td></tr>
+<tr><td >34</td> <td >org.mxupdate.update.util.UpdateBuilder</td><td >31</td></tr>
+<tr><td >35</td> <td >emxLicenseBase</td><td >30</td></tr>
+<tr><td >36</td> <td >org.mxupdate.typedef.TypeDef</td><td >29</td></tr>
+<tr><td >37</td> <td >emxCommonFileBase</td><td >28</td></tr>
+<tr><td >38</td> <td >emxWorkspaceSubscriptionBase</td><td >28</td></tr>
+<tr><td >39</td> <td >org.mxupdate.update.util.ParameterCache</td><td >28</td></tr>
+<tr><td >40</td> <td >emxCommonPartBase</td><td >27</td></tr>
+<tr><td >41</td> <td >emxSchemaDefinitionBase</td><td >27</td></tr>
+<tr><td >42</td> <td >emxTeamContentBase</td><td >27</td></tr>
+<tr><td >43</td> <td >emxAdminCacheBase</td><td >26</td></tr>
+<tr><td >44</td> <td >emxInstallUtilBase</td><td >26</td></tr>
+<tr><td >45</td> <td >jpo.plmprovider.Mat3DLiveBase</td><td >26</td></tr>
+<tr><td >46</td> <td >emxCommonMigrationBase</td><td >25</td></tr>
+<tr><td >47</td> <td >emxMemberListBase</td><td >25</td></tr>
+<tr><td >48</td> <td >emxBusinessSkillBase</td><td >24</td></tr>
+<tr><td >49</td> <td >emxCommonDownloadBase</td><td >24</td></tr>
+<tr><td >50</td> <td >emxWorkspaceTemplateBase</td><td >24</td></tr>
+ </table>
+  </div>  <div class="column">
+<h2>Count of JPOs</h2>    <table style="page-break-after: always;"><tr><th style="background-color:Lightgray;"><b>#</b></th><th style="background-color:LightGray;"><b>COUNT(DISTINCT "JPO Name")</b></th></tr>
+<tr><td >1</td> <td >782</td></tr>
+ </table>
+  </div></div>
+
+</body>
+</html>
